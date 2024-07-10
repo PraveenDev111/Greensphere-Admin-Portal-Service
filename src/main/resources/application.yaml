@@ -1,0 +1,14 @@
+#spring.application.name=Greensphere - Admin Portal Service
+server:
+  port: 8090
+spring:
+  application:
+    name: Greensphere - Admin Portal Service
+  datasource:
+    url: jdbc:mysql://localhost:3306/greensphere?createDatabaseIfNotExist=true
+    username: root
+    password:
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop #create tables and drop it when application stops
