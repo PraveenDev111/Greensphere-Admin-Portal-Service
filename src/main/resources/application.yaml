@@ -11,4 +11,5 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop #create tables and drop it when application stops
+      ddl-auto: auto
+    
