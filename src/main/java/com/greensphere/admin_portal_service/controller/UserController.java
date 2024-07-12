@@ -10,38 +10,37 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/admin")
-public class admincontroller {
+@RequestMapping(value = "/api/v1/admin/users")
+public class UserController {
 
     @Autowired
     userService UserService;
 
     // @RequestMapping(method = RequestMethod.POST)
-    @PostMapping("/users")
+    @PostMapping("/insert")
     usersModel insertUser(@RequestBody usersModel user) {
         return UserService.insert(user);
     }
 
-    @PutMapping("/users")
+    @PutMapping("/update")
     public usersModel updateUser(@RequestBody usersModel user) {
         return UserService.update(user);
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public boolean deleteUser(@PathVariable int id) {
         return UserService.delete(id);
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public usersModel fetchUserById(@PathVariable int id) {
         return UserService.fetchById(id);
     }
 
-    @GetMapping("/users/email/{email}")
+    @GetMapping("/{email}")
     public usersModel fetchUserByEmail(@PathVariable String email) {
         return UserService.fetchByEmail(email);
     }
