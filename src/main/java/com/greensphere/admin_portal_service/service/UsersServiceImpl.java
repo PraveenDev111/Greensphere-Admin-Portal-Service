@@ -4,9 +4,15 @@ import com.greensphere.admin_portal_service.model.usersModel;
 import com.greensphere.admin_portal_service.repository.userRepository;
 import java.util.Optional;
 
-public class userServiceImpl implements userService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
+public class UsersServiceImpl implements userService {
+
+    @Autowired
     userRepository userRepo;
+
     @Override
     public usersModel insert(usersModel user) {
         return userRepo.save(user);
@@ -20,7 +26,6 @@ public class userServiceImpl implements userService {
             updatedUser.setUsername(user.getUsername());
             updatedUser.setPassword(user.getPassword());
             updatedUser.setEmail(user.getEmail());
-            updatedUser.setCreatedAt(user.getCreatedAt());
             return userRepo.save(updatedUser);
         } else {
             throw new RuntimeException("User not found with id: " + user.getId());

@@ -2,6 +2,10 @@ package com.greensphere.admin_portal_service.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import org.hibernate.annotations.CreationTimestamp;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "Users")
@@ -20,8 +24,9 @@ public class usersModel {
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Timestamp createdAt;
 
     public int getId() {
         return id;
@@ -55,11 +60,11 @@ public class usersModel {
         this.email = email;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 
