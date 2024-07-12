@@ -4,9 +4,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="Users")
+@Table(name = "Users")
 public class usersModel {
-<<<<<<< HEAD
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,7 +73,4 @@ public class usersModel {
                 ", createdAt=" + createdAt +
                 '}';
     }
-=======
-    int users;
->>>>>>> cd79569ef9e61271c364623e11221e9b15c8d8bc
 }
