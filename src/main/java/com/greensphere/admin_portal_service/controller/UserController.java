@@ -30,7 +30,7 @@ public class UserController {
         return UserService.update(user);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public boolean deleteUser(@PathVariable int id) {
         return UserService.delete(id);
     }
@@ -40,8 +40,9 @@ public class UserController {
         return UserService.fetchById(id);
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     public usersModel fetchUserByEmail(@PathVariable String email) {
         return UserService.fetchByEmail(email);
     }
 }
+
