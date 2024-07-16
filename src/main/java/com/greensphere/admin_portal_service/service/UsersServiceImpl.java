@@ -30,6 +30,7 @@ public class UsersServiceImpl implements userService {
         } else {
             throw new RuntimeException("User not found with id: " + user.getId());
         }
+
     }
 
     @Override

@@ -8,6 +8,6 @@ public class GreensphereAdminPortalServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GreensphereAdminPortalServiceApplication.class, args);
-	}
 
+	}
 }

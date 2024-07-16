@@ -40,7 +40,7 @@ public class UserController {
         return UserService.fetchById(id);
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     public usersModel fetchUserByEmail(@PathVariable String email) {
         return UserService.fetchByEmail(email);
     }
@@ -51,3 +51,4 @@ public class UserController {
     }
 
 }
+
