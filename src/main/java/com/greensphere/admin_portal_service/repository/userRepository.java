@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Repository
 @EnableJpaRepositories
-public interface userRepository extends JpaRepository<usersModel,Integer >{
+public interface userRepository extends JpaRepository<usersModel, Long> {
 
 }

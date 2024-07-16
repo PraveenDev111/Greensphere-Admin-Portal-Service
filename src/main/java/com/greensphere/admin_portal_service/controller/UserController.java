@@ -30,6 +30,11 @@ public class UserController {
         return UserService.update(user);
     }
 
+    @PutMapping("/status/{status}")
+    public usersModel updateStatus(@RequestBody usersModel user, @PathVariable int status) {
+        return UserService.updateStatus(user, status);
+    }
+
     @DeleteMapping("/delete/{id}")
     public boolean deleteUser(@PathVariable int id) {
         return UserService.delete(id);
@@ -51,4 +56,3 @@ public class UserController {
     }
 
 }
-

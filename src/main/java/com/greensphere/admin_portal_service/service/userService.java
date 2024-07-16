@@ -4,8 +4,14 @@ import com.greensphere.admin_portal_service.model.usersModel;
 
 public interface userService {
     usersModel insert(usersModel user);
+
     usersModel update(usersModel user);
-    boolean delete(int id);
-    usersModel fetchById(int id);
+
+    boolean delete(long id);
+
+    usersModel fetchById(long id);
+
     usersModel fetchByEmail(String email);
+
+    usersModel updateStatus(usersModel user, int status);
 }

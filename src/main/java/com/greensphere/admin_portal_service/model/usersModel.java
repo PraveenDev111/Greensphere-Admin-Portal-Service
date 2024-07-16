@@ -1,15 +1,20 @@
 package com.greensphere.admin_portal_service.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import com.greensphere.admin_portal_service.Entities.BaseEntity;
 
 @Entity
+@Setter
+@Getter
 @Table(name = "Users")
 public class usersModel extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name = "username", nullable = false, length = 50)
     private String username;
@@ -20,37 +25,20 @@ public class usersModel extends BaseEntity {
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    public int getId() {
-        return id;
-    }
+    @Column(name = "first_name", length = 50)
+    private String first_name;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Column(name = "last_name", length = 50)
+    private String last_name;
 
-    public String getUsername() {
-        return username;
-    }
+    @Column(name = "address", length = 255)
+    private String address;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    @Column(name = "contact_info", length = 100)
+    private String contact_info;
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    @Column(name = "status")
+    private boolean status;
 
     @Override
     public String toString() {
@@ -59,6 +47,7 @@ public class usersModel extends BaseEntity {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", status=' " + status + '\'' +
                 '}';
     }
 }
