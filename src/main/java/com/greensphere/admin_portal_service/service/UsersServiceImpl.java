@@ -2,6 +2,8 @@ package com.greensphere.admin_portal_service.service;
 
 import com.greensphere.admin_portal_service.model.usersModel;
 import com.greensphere.admin_portal_service.repository.userRepository;
+
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +91,10 @@ public class UsersServiceImpl implements userService {
         } else {
             throw new RuntimeException("User not found with id: " + user.getId());
         }
+    }
 
+    @Override
+    public List<usersModel> fetchAllUsers() {
+        return userRepo.findAll();
     }
 }
