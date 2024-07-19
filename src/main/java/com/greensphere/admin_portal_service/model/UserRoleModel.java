@@ -12,7 +12,7 @@ public class UserRoleModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -20,13 +20,4 @@ public class UserRoleModel {
 
     @Column(nullable = false)
     private String role;
-
-    public UserRoleModel() {
-    }
-
-    public UserRoleModel(usersModel user, String role) {
-        this.user = user;
-        this.role = role;
-    }
-
 }
