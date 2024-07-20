@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +11,6 @@ import org.springframework.stereotype.Service;
 import com.greensphere.admin_portal_service.model.UserRoleModel;
 import com.greensphere.admin_portal_service.model.usersModel;
 import com.greensphere.admin_portal_service.repository.UserRoleRepository;
-import com.greensphere.admin_portal_service.repository.userRepository;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
@@ -25,7 +21,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public UserRoleModel addRoleToUser(usersModel user, String role) {
         // Check if the rolw is one of the following
-        final Set<String> ALLOWED_ROLES = Set.of("Admin", "User", "Officer");
+        final Set<String> ALLOWED_ROLES = Set.of("Admin", "Super Admin", "Officer", "User");
 
         if (!ALLOWED_ROLES.contains(role)) {
             throw new IllegalArgumentException("Invalid role: " + role);
