@@ -3,6 +3,7 @@ package com.greensphere.admin_portal_service.service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,24 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public UserRoleModel addRoleToUser(usersModel user, String role) {
-        UserRoleModel userRole = new UserRoleModel();
-        userRole.setUser(user);
-        userRole.setRole(role);
+        // Check if the rolw is one of the following
+        final Set<String> ALLOWED_ROLES = Set.of("Admin", "User", "Officer");
+
+        if (!ALLOWED_ROLES.contains(role)) {
+            throw new IllegalArgumentException("Invalid role: " + role);
+        }
+        // Check if a role already exists for the user
+        Optional<UserRoleModel> existingRole = userRoleRepository.findByUser(user);
+
+        UserRoleModel userRole;
+        if (existingRole.isPresent()) {
+            userRole = existingRole.get();
+            userRole.setRole(role); // Update existing role
+        } else {
+            userRole = new UserRoleModel();
+            userRole.setUser(user);
+            userRole.setRole(role); // Assign new role
+        }
         return userRoleRepository.save(userRole);
     }
 
