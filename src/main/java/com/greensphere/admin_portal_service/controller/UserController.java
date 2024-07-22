@@ -1,6 +1,7 @@
 package com.greensphere.admin_portal_service.controller;
 
 import com.greensphere.admin_portal_service.model.usersModel;
+import com.greensphere.admin_portal_service.service.SystemLogService;
 import com.greensphere.admin_portal_service.service.userService;
 
 import java.util.List;
@@ -23,25 +24,41 @@ public class UserController {
     @Autowired
     userService UserService;
 
+    @Autowired
+    SystemLogService systemLogservice;
+
     // @RequestMapping(method = RequestMethod.POST)
     @PostMapping("/insert")
     usersModel insertUser(@RequestBody usersModel user) {
-        return UserService.insert(user);
+        usersModel createdUser = UserService.insert(user);
+        // for long 10, replace with authentication logic
+        systemLogservice.logAction((long) 10, "CREATE USER", "Created User with id: " + createdUser.getId());
+        return createdUser;
     }
 
     @PutMapping("/update")
     public usersModel updateUser(@RequestBody usersModel user) {
+        systemLogservice.logAction((long) 10, "EDIT USER", "Edited User with id: " + user.getId());
         return UserService.update(user);
     }
 
     @PutMapping("/status/{status}")
     public usersModel updateStatus(@RequestBody usersModel user, @PathVariable int status) {
+        systemLogservice.logAction((long) 10, "CHECKED STATUS", "Checked status of User: " + user.getId());
         return UserService.updateStatus(user, status);
     }
 
     @DeleteMapping("/delete/{id}")
     public boolean deleteUser(@PathVariable int id) {
-        return UserService.delete(id);
+        boolean isDeleted = UserService.delete(id);
+        if (isDeleted) {
+            systemLogservice.logAction((long) 10, "DELETED USER", "Deleted User with ID: " + id);
+            return ResponseEntity.ok("User deleted successfully.") != null;
+        } else {
+            systemLogservice.logAction((long) 10, "ATTEMPTED TO DELETE USER",
+                    "Attempted to delete User with ID: " + id);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete user.") != null;
+        }
     }
 
     @GetMapping("/get/{id}")

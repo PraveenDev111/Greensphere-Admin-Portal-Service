@@ -5,23 +5,28 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.management.relation.RoleNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.greensphere.admin_portal_service.model.UserRoleModel;
 import com.greensphere.admin_portal_service.model.usersModel;
 import com.greensphere.admin_portal_service.repository.UserRoleRepository;
+import com.greensphere.admin_portal_service.repository.userRepository;
 
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
 
     @Autowired
     private UserRoleRepository userRoleRepository;
+    @Autowired
+    private userRepository userrepository;
 
     @Override
     public UserRoleModel addRoleToUser(usersModel user, String role) {
         // Check if the rolw is one of the following
-        final Set<String> ALLOWED_ROLES = Set.of("Admin", "Super Admin", "Officer", "User");
+        final Set<String> ALLOWED_ROLES = Set.of("Admin", "Super Admin", "Officer", "User", "none");
 
         if (!ALLOWED_ROLES.contains(role)) {
             throw new IllegalArgumentException("Invalid role: " + role);
@@ -43,9 +48,17 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public List<UserRoleModel> getRolesByUserId(Long userId) {
-        Optional<UserRoleModel> userRole = userRoleRepository.findById(userId);
-        // Handle the case where userRole is empty (no user found)
-        return userRole.map(Collections::singletonList).orElse(Collections.emptyList());
+        List<UserRoleModel> userRoles = userRoleRepository.findByUserId(userId);
+        if (userRoles.isEmpty()) {
+            throw new RoleNotFoundException("No roles found for user ID: " + userId);
+        }
+        return userRoles;
+    }
+
+    public class RoleNotFoundException extends RuntimeException {
+        public RoleNotFoundException(String message) {
+            super(message);
+        }
     }
 
 }

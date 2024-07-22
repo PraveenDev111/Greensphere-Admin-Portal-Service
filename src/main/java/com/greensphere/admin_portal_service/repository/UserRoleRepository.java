@@ -5,6 +5,7 @@ import com.greensphere.admin_portal_service.model.usersModel;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +15,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 public interface UserRoleRepository extends JpaRepository<UserRoleModel, Long> {
     Optional<UserRoleModel> findByUser(usersModel user);
+
+    List<UserRoleModel> findByUserId(Long userId);
+
 }
