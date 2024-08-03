@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -52,10 +53,10 @@ public class UserController {
     public boolean deleteUser(@PathVariable int id) {
         boolean isDeleted = UserService.delete(id);
         if (isDeleted) {
-            systemLogservice.logAction((long) 10, "DELETED USER", "Deleted User with ID: " + id);
+            systemLogservice.logAction((long) 12, "DELETED USER", "Deleted User with ID: " + id);
             return ResponseEntity.ok("User deleted successfully.") != null;
         } else {
-            systemLogservice.logAction((long) 10, "ATTEMPTED TO DELETE USER",
+            systemLogservice.logAction((long) 12, "ATTEMPTED TO DELETE USER",
                     "Attempted to delete User with ID: " + id);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete user.") != null;
         }
@@ -67,8 +68,16 @@ public class UserController {
     }
 
     @GetMapping(value = "/all", produces = "application/json")
+    public ResponseEntity<List<usersModel>> fetchAll(
+            @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "25") int limit) {
+        List<usersModel> allusers = UserService.fetchAllUsers(offset, limit);
+        return new ResponseEntity<>(allusers, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/allusers", produces = "application/json")
     public ResponseEntity<List<usersModel>> fetchAll() {
-        List<usersModel> allUsers = UserService.fetchAllUsers();
+        List<usersModel> allUsers = UserService.fetchAllUsers(0, 1000);
         return new ResponseEntity<>(allUsers, HttpStatus.OK);
     }
 
@@ -81,5 +90,4 @@ public class UserController {
     public String getMethodName() {
         return "Hello";
     }
-
 }

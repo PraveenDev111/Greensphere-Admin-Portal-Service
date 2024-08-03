@@ -1,11 +1,7 @@
 package com.greensphere.admin_portal_service.service;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.greensphere.admin_portal_service.model.usersModel;
-import com.greensphere.admin_portal_service.repository.userRepository;
 
 public interface userService {
     usersModel insert(usersModel user);
@@ -20,5 +16,5 @@ public interface userService {
 
     usersModel updateStatus(usersModel user, int status);
 
-    List<usersModel> fetchAllUsers();
+    List<usersModel> fetchAllUsers(int offset, int limit);
 }

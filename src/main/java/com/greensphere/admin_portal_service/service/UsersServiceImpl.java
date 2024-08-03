@@ -1,19 +1,26 @@
 package com.greensphere.admin_portal_service.service;
 
 import com.greensphere.admin_portal_service.model.usersModel;
+import com.greensphere.admin_portal_service.repository.UserRoleRepository;
 import com.greensphere.admin_portal_service.repository.userRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UsersServiceImpl implements userService {
 
     @Autowired
     userRepository userRepo;
+
+    @Autowired
+    private UserRoleRepository userRoleRepository;
 
     @Override
     public usersModel insert(usersModel user) {
@@ -58,10 +65,11 @@ public class UsersServiceImpl implements userService {
         }
     }
 
-    @Override
+    @Transactional
     public boolean delete(long id) {
         Optional<usersModel> existingUser = userRepo.findById(id);
         if (existingUser.isPresent()) {
+            userRoleRepository.deleteByUserId(id);
             userRepo.delete(existingUser.get());
             return true;
         } else {
@@ -94,7 +102,8 @@ public class UsersServiceImpl implements userService {
     }
 
     @Override
-    public List<usersModel> fetchAllUsers() {
-        return userRepo.findAll();
+    public List<usersModel> fetchAllUsers(int offset, int limit) {
+        Pageable pageable = PageRequest.of(offset, limit);
+        return userRepo.findAll(pageable).getContent();
     }
 }
