@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/admin/users")
+@RequestMapping(value = "/api/v1/admin")
 public class UserController {
 
     @Autowired
@@ -47,6 +47,12 @@ public class UserController {
     public usersModel updateStatus(@RequestBody usersModel user, @PathVariable int status) {
         systemLogservice.logAction((long) 10, "CHECKED STATUS", "Checked status of User: " + user.getId());
         return UserService.updateStatus(user, status);
+    }
+
+    @PutMapping("/role/{role}")
+    public usersModel updateRole(@RequestBody usersModel user, @PathVariable String role) {
+        systemLogservice.logAction((long) 10, "UPDATED ROLE ", "Updated role of User: " + user.getId());
+        return UserService.updateRole(user, role);
     }
 
     @DeleteMapping("/delete/{id}")

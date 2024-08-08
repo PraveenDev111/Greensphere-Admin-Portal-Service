@@ -16,5 +16,7 @@ public interface userService {
 
     usersModel updateStatus(usersModel user, int status);
 
+    usersModel updateRole(usersModel user, String role);
+
     List<usersModel> fetchAllUsers(int offset, int limit);
 }

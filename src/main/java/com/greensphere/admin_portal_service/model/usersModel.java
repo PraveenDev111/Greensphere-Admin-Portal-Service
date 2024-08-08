@@ -40,6 +40,9 @@ public class usersModel extends BaseEntity {
     @Column(name = "status")
     private boolean status;
 
+    @Column(name = "role")
+    private String role;
+
     @Override
     public String toString() {
         return "usersModel{" +

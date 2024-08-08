@@ -1,11 +1,11 @@
 package com.greensphere.admin_portal_service.service;
 
 import com.greensphere.admin_portal_service.model.usersModel;
-import com.greensphere.admin_portal_service.repository.UserRoleRepository;
 import com.greensphere.admin_portal_service.repository.userRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,9 +18,6 @@ public class UsersServiceImpl implements userService {
 
     @Autowired
     userRepository userRepo;
-
-    @Autowired
-    private UserRoleRepository userRoleRepository;
 
     @Override
     public usersModel insert(usersModel user) {
@@ -69,7 +66,7 @@ public class UsersServiceImpl implements userService {
     public boolean delete(long id) {
         Optional<usersModel> existingUser = userRepo.findById(id);
         if (existingUser.isPresent()) {
-            userRoleRepository.deleteByUserId(id);
+            // userRoleRepository.deleteByUserId(id);
             userRepo.delete(existingUser.get());
             return true;
         } else {
@@ -106,4 +103,24 @@ public class UsersServiceImpl implements userService {
         Pageable pageable = PageRequest.of(offset, limit);
         return userRepo.findAll(pageable).getContent();
     }
+
+    @Override
+    public usersModel updateRole(usersModel user, String role) {
+        List<String> allowedRoles = Arrays.asList("admin", "super admin", "supervisor", "analyst", "viewer");
+
+        // Check if the provided role is in the allowed roles list
+        if (!allowedRoles.contains(role.toLowerCase())) {
+            throw new IllegalArgumentException("Invalid role: " + role);
+        }
+        // Find the existing user by their ID
+        Optional<usersModel> existingUser = userRepo.findById(user.getId());
+        if (existingUser.isPresent()) {
+            usersModel updatedUser = existingUser.get();
+            updatedUser.setRole(role); // Assuming usersModel has a setRole method
+            return userRepo.save(updatedUser);
+        } else {
+            throw new RuntimeException("User not found with id: " + user.getId());
+        }
+    }
+
 }
