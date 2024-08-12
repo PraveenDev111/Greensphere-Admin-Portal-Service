@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>GS | Users manage</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" th:href="@{/vendors/ti-icons/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/vendors/base/vendor.bundle.base.css}">
+    <!-- endinject -->
+    <!-- inject:css -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- endinject -->
+    <link rel="shortcut icon" th:href="@{/images/gs-logo-.png}" />
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:../partials/_navbar.html -->
+        <div th:replace="~{fragments/navbar :: navbar}"></div>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:../partials/_sidebar.html -->
+            <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-12 grid-margin">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Create New User</h4>
+                                    <form class="form-sample" id="createUserForm">
+                                        <p class="card-description">Personal info</p>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">First Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" name="first_name"
+                                                            id="first_name1" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Last Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" name="last_name"
+                                                            id="last_name1" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Email</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="email" class="form-control" name="email"
+                                                            id="email1" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Password</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="password" class="form-control" name="password"
+                                                            id="password1" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Address</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" name="address"
+                                                            id="address1" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Contact Info</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" name="contact_info"
+                                                            id="contact_info1" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Preferred Username</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" name="username"
+                                                            id="username1" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label">Status</label>
+                                                    <div class="col-sm-9">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="statusRadio" id="statusActive1" value="true">
+                                                            <label class="form-check-label"
+                                                                for="statusActive1">Active</label>
+                                                            <input class="form-check-input" type="radio"
+                                                                name="statusRadio" id="statusDisabled1" value="false">
+                                                            <label class="form-check-label"
+                                                                for="statusDisabled1">Disabled</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                        <button type="submit" class="btn btn-primary btn-icon-text">
+                                                            <i class="ti-file btn-icon-prepend"></i>
+                                                            Create User
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Edit User</h4>
+                                    <p class="card-description">
+                                        Search by ID
+                                    </p>
+                                    <form class="forms-sample" id="search-form">
+                                        <div class="form-group">
+                                            <label for="userId">User ID</label>
+                                            <input type="text" class="form-control" id="userId" placeholder="User ID">
+                                        </div>
+                                        <button type="button" class="btn btn-primary me-2"
+                                            onclick="searchUser()">Search</button>
+                                    </form>
+                                    <form class="forms-sample" id="update-form" style="display:none;">
+                                        <input type="text" class="form-control" id="userid" name="userId"
+                                            placeholder="ID" readonly hidden>
+                                        <div class="form-group">
+                                            <label for="username">Username</label>
+                                            <input type="text" class="form-control" id="username" name="username"
+                                                placeholder="Username" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="firstName">First Name</label>
+                                            <input type="text" class="form-control" id="firstName" name="firstName"
+                                                placeholder="First Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastName">Last Name</label>
+                                            <input type="text" class="form-control" id="lastName" name="lastName"
+                                                placeholder="Last Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email address</label>
+                                            <input type="email" class="form-control" id="email" name="email"
+                                                placeholder="Email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" class="form-control" id="password" name="password"
+                                                placeholder="Password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address">Address</label>
+                                            <input type="text" class="form-control" id="address" name="address"
+                                                placeholder="Address">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contactInfo">Contact Info</label>
+                                            <input type="text" class="form-control" id="contactInfo" name="contactInfo"
+                                                placeholder="Contact Info">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <div>
+                                                <input type="radio" class="form-check-input" name="status"
+                                                    id="statusActive" value="true">
+                                                <label class="form-check-label" for="statusActive">Active</label>
+                                                <input type="radio" class="form-check-input" name="status"
+                                                    id="statusDisabled" value="false">
+                                                <label class="form-check-label" for="statusDisabled">Disabled</label>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-primary me-2"
+                                            onclick="updateUser()">Update</button>
+                                        <button type="button" class="btn btn-light"
+                                            onclick="resetForm()">Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- content-wrapper ends -->
+                    <div th:replace="~{fragments/footer :: footer}"></div>
+                </div>
+            </div>
+            <!-- page-body-wrapper ends -->
+        </div>
+        <!-- container-scroller -->
+        <!-- plugins:js -->
+        <script th:src="@{/vendors/base/vendor.bundle.base.js}"></script>
+        <script th:src="@{/js/off-canvas.js}"></script>
+        <script th:src="@{/js/hoverable-collapse.js}"></script>
+        <script th:src="@{/js/template.js}"></script>
+        <script th:src="@{/js/todolist.js}"></script>
+        <script th:src="@{/js/js-grid-users.js}"></script>
+        <script th:src="@{/js/js-update-users.js}"></script>
+        <!-- endinject -->
+        <!-- Custom js for this page-->
+        <script>
+            //function to insert a new user
+            document.getElementById('createUserForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const user = {
+                    firstName: document.getElementById('first_name1').value,
+                    lastName: document.getElementById('last_name1').value,
+                    email: document.getElementById('email1').value,
+                    password: document.getElementById('password1').value,
+                    address: document.getElementById('address1').value,
+                    contactInfo: document.getElementById('contact_info1').value,
+                    username: document.getElementById('username1').value,
+                    status: document.querySelector('input[name="statusRadio"]:checked').value
+                };
+
+                fetch('http://localhost:8090/api/v1/admin/insert', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('User created successfully:', data);
+                        alert('User created successfully!');
+                        document.getElementById('createUserForm').reset();
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                        alert('Failed to create user');
+                    });
+            });
+
+
+            // Function to update user data
+            function updateUser() {
+                const form = document.getElementById('update-form');
+                const formData = new FormData(form);
+                const userData = {
+                    id: formData.get('userId'),
+                    first_name: formData.get('firstName'),
+                    last_name: formData.get('lastName'),
+                    email: formData.get('email'),
+                    password: formData.get('password'),
+                    address: formData.get('address'),
+                    contact_info: formData.get('contactInfo'),
+                    status: formData.get('status')
+                };
+                fetch('/api/v1/admin/update', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        alert('User updated successfully!');
+                        resetForm(); // Optionally reset the form
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                        alert('Error updating user. Please try again.');
+                    });
+            }
+            function searchUser() {
+                var userId = document.getElementById("userId").value;
+
+                fetch(`http://localhost:8090/api/v1/admin/get/${userId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Populate form fields with fetched data
+                        document.getElementById("userid").value = data.id;
+                        document.getElementById("firstName").value = data.first_name;
+                        document.getElementById("username").value = data.username;
+                        document.getElementById("lastName").value = data.last_name;
+                        document.getElementById("email").value = data.email;
+                        document.getElementById("password").value = data.password;
+                        document.getElementById("address").value = data.address;
+                        document.getElementById("contactInfo").value = data.contact_info;
+                        console.log("here: " + data.status);
+                        if (data.status == true || data.status === "true") {
+                            console.log("here 2: " + data.status);
+                            document.getElementById("statusActive").checked = true;
+                        } else {
+                            console.log("here 3: " + data.status);
+                            document.getElementById("statusDisabled").checked = true;
+                        }
+
+                        // Show the update form
+                        document.getElementById("update-form").style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Admin user not found / There was a problem with the fetch operation:', error);
+                        alert("User not found");
+                    });
+            }
+
+
+            function resetForm() {
+                document.getElementById("update-form").reset();
+                document.getElementById("update-form").style.display = "none";
+            }
+        </script>
+
+        <!-- End custom js for this page-->
+</body>
+
+</html>

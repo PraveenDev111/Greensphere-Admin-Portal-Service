@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Repository
 @EnableJpaRepositories
 public interface userRepository extends JpaRepository<usersModel, Long> {
-
+    usersModel findByUsername(String username);
 }

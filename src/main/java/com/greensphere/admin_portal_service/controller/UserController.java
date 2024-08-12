@@ -8,6 +8,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,12 +31,17 @@ public class UserController {
     @Autowired
     SystemLogService systemLogservice;
 
-    // @RequestMapping(method = RequestMethod.POST)
+    // Retrieve the authenticated user's ID
+
     @PostMapping("/insert")
     usersModel insertUser(@RequestBody usersModel user) {
         usersModel createdUser = UserService.insert(user);
-        // for long 10, replace with authentication logic
-        systemLogservice.logAction((long) 10, "CREATE USER", "Created User with id: " + createdUser.getId());
+        // Retrieve the authenticated user's ID
+        systemLogservice.logAction((long) 12, "CREATE USER",
+                "Created User with id: " + createdUser.getId());
+
+        // systemLogservice.logAction((long) 10, "CREATE USER", "Created User with id: "
+        // + createdUser.getId());
         return createdUser;
     }
 

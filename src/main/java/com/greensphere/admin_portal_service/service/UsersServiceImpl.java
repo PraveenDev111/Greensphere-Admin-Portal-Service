@@ -4,6 +4,7 @@ import com.greensphere.admin_portal_service.model.usersModel;
 import com.greensphere.admin_portal_service.repository.userRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +38,9 @@ public class UsersServiceImpl implements userService {
                 updatedUser.setUsername(user.getUsername());
             }
             if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-                updatedUser.setPassword(user.getPassword());
+                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                String encodedPassword = encoder.encode(user.getPassword());
+                updatedUser.setPassword(encodedPassword);
             }
             if (user.getEmail() != null && !user.getEmail().isEmpty()) {
                 updatedUser.setEmail(user.getEmail());
@@ -81,6 +84,11 @@ public class UsersServiceImpl implements userService {
     }
 
     @Override
+    public usersModel fetchByUsername(String username) {
+        return userRepo.findByUsername(username);
+    }
+
+    @Override
     public usersModel fetchByEmail(String email) {
         return null;
     }
@@ -106,7 +114,7 @@ public class UsersServiceImpl implements userService {
 
     @Override
     public usersModel updateRole(usersModel user, String role) {
-        List<String> allowedRoles = Arrays.asList("admin", "super admin", "supervisor", "analyst", "viewer");
+        List<String> allowedRoles = Arrays.asList("admin", "super admin", "supervisor", "analyst", "viewer", "none");
 
         // Check if the provided role is in the allowed roles list
         if (!allowedRoles.contains(role.toLowerCase())) {
