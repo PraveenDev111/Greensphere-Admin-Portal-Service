@@ -130,5 +130,4 @@ public class UsersServiceImpl implements userService {
             throw new RuntimeException("User not found with id: " + user.getId());
         }
     }
-
 }

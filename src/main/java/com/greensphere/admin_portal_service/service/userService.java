@@ -21,4 +21,5 @@ public interface userService {
     List<usersModel> fetchAllUsers(int offset, int limit);
 
     usersModel fetchByUsername(String username);
+
 }
