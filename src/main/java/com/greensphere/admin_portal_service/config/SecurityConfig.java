@@ -41,6 +41,10 @@ public class SecurityConfig {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
+    //Uncomment this section to bypass authentication
+    //comment the rest of the section
+    //add a sample user then to check in UI
+
     /*
      * @Bean
      * public SecurityFilterChain securityFilterChain(HttpSecurity http)
@@ -98,20 +102,6 @@ public class SecurityConfig {
         };
     }
 
-    /*
-     * @Bean
-     * public UserDetailsService userDetailsService() {
-     * return username -> {
-     * usersModel user = userService.fetchByUsername(username);
-     * if (user != null) {
-     * return new User(user.getUsername(), user.getPassword(),
-     * AuthorityUtils.createAuthorityList(user.getRole()));
-     * } else {
-     * throw new UsernameNotFoundException("User not found");
-     * }
-     * };
-     * }
-     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -129,4 +119,18 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
+        /*
+     * @Bean
+     * public UserDetailsService userDetailsService() {
+     * return username -> {
+     * usersModel user = userService.fetchByUsername(username);
+     * if (user != null) {
+     * return new User(user.getUsername(), user.getPassword(),
+     * AuthorityUtils.createAuthorityList(user.getRole()));
+     * } else {
+     * throw new UsernameNotFoundException("User not found");
+     * }
+     * };
+     * }
+     */  
 }
