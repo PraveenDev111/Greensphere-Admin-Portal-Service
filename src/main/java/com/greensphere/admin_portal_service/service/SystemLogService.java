@@ -1,10 +1,12 @@
 package com.greensphere.admin_portal_service.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 
 import com.greensphere.admin_portal_service.model.SystemLogModel;
-import com.greensphere.admin_portal_service.model.usersModel;
 import com.greensphere.admin_portal_service.repository.SystemLogRepository;
 
 import java.time.LocalDateTime;
@@ -26,6 +28,7 @@ public class SystemLogService {
     }
 
     public List<SystemLogModel> fetchAllLogs() {
-        return systemLogRepository.findAll();
+        Pageable limit = PageRequest.of(0, 50, Sort.by(Sort.Direction.DESC, "id"));
+        return systemLogRepository.findAll(limit).getContent();
     }
 }

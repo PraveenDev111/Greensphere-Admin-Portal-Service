@@ -36,6 +36,9 @@
                             <div th:if="${param.logout}">
                                 <p style="color:red;">You have been logged out.</p>
                             </div>
+                            <div th:if="${param.noaccess}">
+                                <p style="color:red;">Please request system admin for portal access.</p>
+                            </div>
 
                             <form class="pt-3" th:action="@{/login}" method="POST">
                                 <div class="form-group">

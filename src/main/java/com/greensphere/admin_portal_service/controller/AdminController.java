@@ -11,6 +11,11 @@ public class AdminController {
         return "pages/home";
     }
 
+    @GetMapping("/logs")
+    public String logs() {
+        return "pages/systemlogs";
+    }
+
     @GetMapping("/login")
     public String login() {
         return "login";

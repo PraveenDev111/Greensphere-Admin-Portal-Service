@@ -2,6 +2,9 @@ package com.greensphere.admin_portal_service.service;
 
 import com.greensphere.admin_portal_service.model.usersModel;
 import com.greensphere.admin_portal_service.repository.userRepository;
+
+import jakarta.annotation.PostConstruct;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +22,23 @@ public class UsersServiceImpl implements userService {
 
     @Autowired
     userRepository userRepo;
+
+    @PostConstruct
+    public void addDefaultUser() {
+        if (userRepo.count() == 0) { // Ensure that the table is empty before adding
+            usersModel defaultUser = new usersModel();
+            defaultUser.setUsername("admin");
+            defaultUser.setPassword("$2a$12$7acg2j/IVWLJIlda7cuL5.rr17D1fr5GciB5YyXTqGsF2LGAFqt/C");
+            defaultUser.setEmail("admin@example.com");
+            defaultUser.setFirst_name("Admin");
+            defaultUser.setLast_name("User");
+            defaultUser.setAddress("Admin Address");
+            defaultUser.setContact_info("123456789");
+            defaultUser.setStatus(true);
+            defaultUser.setRole("ADMIN");
+            userRepo.save(defaultUser);
+        }
+    }
 
     @Override
     public usersModel insert(usersModel user) {

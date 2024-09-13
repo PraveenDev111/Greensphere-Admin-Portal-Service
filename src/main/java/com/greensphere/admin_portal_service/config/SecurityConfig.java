@@ -1,8 +1,8 @@
 package com.greensphere.admin_portal_service.config;
 
-import com.greensphere.admin_portal_service.model.usersModel;
+import com.greensphere.admin_portal_service.model.CustomUserDetails;
 import com.greensphere.admin_portal_service.service.CustomUserDetailsService;
-import com.greensphere.admin_portal_service.service.userService;
+import com.greensphere.admin_portal_service.service.SystemLogService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +22,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -31,7 +32,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.stereotype.Component;
 
 @Configuration
 
@@ -41,9 +44,9 @@ public class SecurityConfig {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
-    //Uncomment this section to bypass authentication
-    //comment the rest of the section
-    //add a sample user then to check in UI
+    // Uncomment this section to bypass authentication
+    // comment the rest of the section
+    // add a sample user then to check in UI
 
     /*
      * @Bean
@@ -119,7 +122,28 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
-        /*
+
+    @Component
+    public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
+        @Autowired
+        private SystemLogService systemLogService;
+
+        @Override
+        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                Authentication authentication) throws IOException, ServletException {
+            // Retrieve authenticated user's ID
+            CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+            long authenticatedUserId = userDetails.getId();
+
+            // Log the login action
+            systemLogService.logAction(authenticatedUserId, "LOGIN", "User logged in successfully");
+
+            // Redirect to the default success URL (you can change this if needed)
+            response.sendRedirect("/home");
+        }
+    }
+    /*
      * @Bean
      * public UserDetailsService userDetailsService() {
      * return username -> {
@@ -132,5 +156,5 @@ public class SecurityConfig {
      * }
      * };
      * }
-     */  
+     */
 }

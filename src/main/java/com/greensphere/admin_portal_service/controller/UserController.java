@@ -90,6 +90,11 @@ public class UserController {
         return UserService.fetchById(id);
     }
 
+    @GetMapping("/get2/{id}")
+    public usersModel fetchUserByIds(@PathVariable int id) {
+        return UserService.fetchById(id);
+    }
+
     @GetMapping(value = "/all", produces = "application/json")
     public ResponseEntity<List<usersModel>> fetchAll(
             @RequestParam(defaultValue = "0") int offset,

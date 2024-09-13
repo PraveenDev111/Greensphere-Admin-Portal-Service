@@ -7,43 +7,19 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                aria-controls="ui-basic">
-                <i class="ti-palette menu-icon"></i>
-                <span class="menu-title">UI Elements</span>
+            <a class="nav-link" data-bs-toggle="collapse" href="#users" aria-expanded="false" aria-controls="users">
+                <i class="fas fa-user menu-icon"></i>
+                <span class="menu-title">Manage Users</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic">
+            <div class="collapse" id="users">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="../pages/ui-features/buttons.html">Buttons</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="../pages/ui-features/typography.html">Typography</a>
+                    <li class="nav-item"> <a class="nav-link" th:href="@{/adminusers}"> User Accounts </a></li>
+                    <li class="nav-item"> <a class="nav-link" th:href="@{/editadminusers}"> Create/Edit Users </a>
                     </li>
+                    <li class="nav-item"> <a class="nav-link" th:href="@{/setroles}"> Assign Roles</a></li>
                 </ul>
             </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../pages/forms/basic_elements.html">
-                <i class="ti-layout-list-post menu-icon"></i>
-                <span class="menu-title">Form elements</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../pages/charts/chartjs.html">
-                <i class="ti-pie-chart menu-icon"></i>
-                <span class="menu-title">Charts</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../pages/tables/basic-table.html">
-                <i class="ti-view-list-alt menu-icon"></i>
-                <span class="menu-title">Tables</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../pages/icons/themify.html">
-                <i class="ti-star menu-icon"></i>
-                <span class="menu-title">Icons</span>
-            </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
